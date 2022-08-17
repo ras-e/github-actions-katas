@@ -3,7 +3,6 @@ on: push
 env:
   docker_username: ${{ secrets.DOCKER_USERNAME }}
   docker_password: ${{ secrets.DOCKER_PASSWORD }}
-  git_commit: ${{ github.sha }}
 jobs:
   Clone-down:
     runs-on: ubuntu-latest
@@ -49,7 +48,10 @@ jobs:
         with:
           name: code
           path: .
-      - name: build-docker
+      - name: build docker
+        run: chmod +x ci/build-docker.sh && ci/build-docker.sh
+      - name: push docker
+        run: chmod +x ci/push-docker.sh && ci/push-docker.sh
         
 
           
